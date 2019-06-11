@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui' />
+    <title>Kampala City Growth</title>
+    <script src='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet-src.js'></script>
+    <link href='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css' rel='stylesheet' />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+	
+	
+	<script src="js/leaflet-side-by-side.js"></script>
+
+	<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+    }
+    .ctl {
+        padding: 2px 10px 2px 10px;
+        background: white;
+        background: rgba(255,255,255,0.9);
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        border-radius: 5px;
+        text-align: right;
+    }
+    .title {
+        font-size: 18pt;
+        font-weight: bold;
+     }
+     .src {
+        font-size: 10pt;
+     }    
+    </style>
+</head>
+
+<body>
+    <div id='map'></div>
+
+    <script>
+    var map = L.map('map', {zoomControl:false}).setView([0.3183, 32.5989], 13);
+        
+    map.options.maxZoom=20;
+    map.options.minZoom=10;    
+        
+
+        
+    var title = L.control({position: 'topleft'});
+        title.onAdd = function(map) {
+            this._div = L.DomUtil.create('div', 'ctl title');
+            this.update();
+            return this._div;
+        };
+        title.update = function(props) {
+            this._div.innerHTML = "2016-03-11";
+        };
+        title.addTo(map);
+        
+    var title = L.control({position: 'topright'});
+        title.onAdd = function(map) {
+            this._div = L.DomUtil.create('div', 'ctl title');
+            this.update();
+            return this._div;
+        };
+        title.update = function(props) {
+            this._div.innerHTML = "2018-02-14";
+        };
+        title.addTo(map);    
+        
+    var osm = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3'], attribution: 'powered by Google', zIndex: 2}).addTo(map);    
+
+    var data2016 = L.tileLayer('./data/data2016/{z}/{x}/{y}.png',{tms: false, opacity: 1, attribution: "", zIndex: 100, minZoom: 13, maxZoom: 15}).addTo(map)
+
+    var data2018 = L.tileLayer('./data/data2018/{z}/{x}/{y}.png',{tms: false, opacity: 1, attribution: "", zIndex: 100, minZoom: 13, maxZoom: 15}).addTo(map)
+
+	var boundary = new L.GeoJSON.AJAX('./data/kampala.geojson');       
+boundary.addTo(map);
+	
+    L.control.sideBySide(data2016, data2018).addTo(map);
+    </script>
+</body>
+</html>
