@@ -4,8 +4,8 @@
     <meta charset=utf-8 />
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui' />
     <title>Kampala City Growth</title>
-    <script src='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet-src.js'></script>
-    <link href='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css' rel='stylesheet' />
+    <script src='https://cdn.leafletjs.com/leaflet/v0.7.7/leaflet-src.js'></script>
+    <link href='https://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css' rel='stylesheet' />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
 	
 	
@@ -73,7 +73,7 @@
         };
         title.addTo(map);    
         
-    var osm = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3'], attribution: 'powered by Google', zIndex: 2}).addTo(map);    
+    var osm = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3'], attribution: 'powered by Google', zIndex: 2}).addTo(map);    
 
     var data2016 = L.tileLayer('./data/data2016/{z}/{x}/{y}.png',{tms: false, opacity: 1, attribution: "", zIndex: 100, minZoom: 13, maxZoom: 15}).addTo(map)
 
