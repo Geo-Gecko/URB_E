@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Mobile money agents</title>
+	<link rel="icon" href="Logo_pin.png">
+	<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+	<link rel="stylesheet" href="./Leaflet/leaflet.css" />
+	<script src="./Leaflet/leaflet.js"></script>
+
+	<script src="./jquery_3.1.1/jquery-3.1.1.min.js"></script>
+
+	
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="./sidebar/css/leaflet-sidebar.css" />
+	<a href="https://github.com/Turbo87/sidebar-v2/"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+	<script src="./sidebar/js/leaflet-sidebar.js"></script>
+	
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #mapid {
+            height: 100%;
+            width: 100%;
+			font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+        }
+        lorem {
+            font-style: italic;
+            color: #AAA;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#info" role="tab"><i class="fa fa-angle-right"></i></a></li>
+				<li><a href="../../index.html" role="tab"><i class="fa fa-home"></i></a></li>
+	
+				
+                </ul>
+			<ul role="tablist">
+                <li><a href="https://www.geogecko.com/" target="_blank"><img src="Logo_pin.svg" alt="GeoGecko"></a></li>			
+				<li><a href="https://twitter.com/home?status=There%20are%20hidden%20patterns%20in%20Kampala.%20We%20highlight%20them%20in%20our%20awesome%20maps.%20%23GeoGecko%20%23Uganda%20%23Kampala.%20Check%20them%20out%20here%3A%20%0Awww.kampala.geogecko.com" role="tab" target="_blank"><i class="fa fa-twitter"></i></a></li>
+				<li><a href="https://www.facebook.com/sharer/sharer.php?u=www.kampala.geogecko.com" role="tab" target="_blank"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="https://www.linkedin.com/shareArticle?mini=true&url=www.Kampala.geogecko.com&title=There%20are%20hidden%20patterns%20in%20Kampala.%20We%20highlight%20them%20in%20our%20awesome%20maps.%20Check%20them%20out%20here&summary=&source=" role="tab" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+            	
+			</ul>
+
+        </div>
+
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+
+            <div class="sidebar-pane" id="info">
+                <h1 class="sidebar-header">Mobile Money Access<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+				
+                <font size="4"><p align="justify" class="lorem">GeoGecko mapped all 399,388 buildings in Kampala. We also mapped all 10,199 mobile money agents. We then calculated the distance between each building and the nearest mobile money agent. The result is the pretty map you see here.</p> <center><img src="MM-Legend.png" alt="Italian Trulli" style="width:80%;height:80%;"></center> <p align="justify" class="lorem">But this is more than just a pretty map!</p><p align="justify" class="lorem"> This data can provide tangible and actionable information. We are using this data to asses access to utilities, identify slums, understand city expensaion and much more</p></font>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+<div id="mapid" class="sidebar-map"></div>
+
+
+<script>
+/* eslint-disable */
+var map = L.map('mapid', {
+        minZoom: 11.5,
+        maxZoom: 15,
+		zoomControl: false
+    }).setView([0.32407631702228706, 32.58081606515475], 11.5);
+
+
+var basemap = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://cartodb.com/attributions">CartoDB</a>',
+	subdomains: 'abcd',
+	maxZoom: 19
+}).addTo(map);
+
+
+
+var tms_ne = L.tileLayer('https://geogecko.gis-cdn.net/geoserver/gwc/service/tms/1.0.0/buildings:boulding_data_all@EPSG:900913@png/{z}/{x}/{y}.png', {
+    tms: true
+}).addTo(map);
+
+
+var sidebar = L.control.sidebar('sidebar').addTo(map);
+L.control.zoom({
+     position:'topleft'
+}).addTo(map);
+
+    var logo = L.control({position: 'bottomright'});
+    logo.onAdd = function(map){
+        var div = L.DomUtil.create('div', 'myclass');
+        div.innerHTML="<img src=\"https://static1.squarespace.com/static/57d7d359f5e231039ee21253/t/57e4e57420099e0d7a7b9181/1496765642629/?format=1500w\" width=\"197px\" height=\"50px\">";
+        return div;
+    }
+    logo.addTo(map);
+
+</script>
+</body>
+</html>
