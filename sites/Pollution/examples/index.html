@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>sidebar-v2 example</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.7.2/leaflet.ie.css" /><![endif]-->
+
+    <link rel="stylesheet" href="../css/leaflet-sidebar.css" />
+
+	
+	    <script src="../lib/jquery/jquery-1.9.1.js"></script>
+    <script src="../lib/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+    <link rel="stylesheet" href="../lib/jquery/jquery-ui-1.10.3.custom.min.css" />
+	
+	
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+    }
+
+        .lorem {
+            font-style: italic;
+            color: #AAA;
+        }
+		.ctl {
+			padding: 2px 10px 2px 10px;
+			background: white;
+			background: rgba(255,255,255,0.9);
+			box-shadow: 0 0 15px rgba(0,0,0,0.2);
+			border-radius: 5px;
+			text-align: right;
+		}
+	    .title {
+        font-size: 18pt;
+        font-weight: bold;
+		}
+		.src {
+        font-size: 10pt;
+		}
+    </style>
+</head>
+<body>
+    <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+                <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>
+            </ul>
+
+            <ul role="tablist">
+                <li><a href="https://github.com/Turbo87/sidebar-v2" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>
+            </ul>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="home">
+                <h1 class="sidebar-header">
+                    CitiSat - Pollution
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+
+                <p></p>
+<font size="4"><p align="justify" class="lorem">NO2 Kampala, DD/MM/YYYY</p><p align="justify" class="lorem"><center><img src="Legend.png" alt="Italian Trulli" style="width:80%;height:80%;"></center> <p align="justify" class="lorem"></p></font>
+
+                 </div>
+
+            <div class="sidebar-pane" id="profile">
+                <h1 class="sidebar-header">Profile<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            </div>
+
+            <div class="sidebar-pane" id="settings">
+                <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            </div>
+        </div>
+    </div>
+
+    <div id="map" class="sidebar-map"></div>
+
+
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <script src="../js/leaflet-sidebar.js"></script>
+
+	
+		<link rel="stylesheet" href="../lib/opacity/Control.Opacity.css" />
+    <script src="../lib/opacity/Control.Opacity.js"></script>
+    <script>
+	
+	
+		var osm = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3'], attribution: 'powered by Google', zIndex: 2});    
+		
+        var map = new L.map('map', {
+            center: new L.LatLng(0.347596, 32.582520), 
+            zoom: 15,
+            layers: [osm],
+            zoomControl: true
+        });
+
+
+        var sidebar = L.control.sidebar('sidebar').addTo(map);
+		
+		
+			//Create title for map 
+	    var title = L.control({position: 'topright'});
+        title.onAdd = function(map) {
+            this._div = L.DomUtil.create('div', 'ctl title');
+            this.update();
+            return this._div;
+        };
+        title.update = function(props) {
+            this._div.innerHTML = "Pollution monitoring - : Opacity slider";
+        };
+        title.addTo(map);
+		
+		    //Create the opacity controls
+        var opacitySlider = new L.Control.opacitySlider();
+        map.addControl(opacitySlider);
+    
+    //Specify the layer for which you want to modify the opacity. Note that the setOpacityLayer() method applies to all the controls.
+    //You only need to call it once. 
+        opacitySlider.setOpacityLayer(heatdata);
+        
+    //Set initial opacity to 0.5 (Optional)
+        heatdata.setOpacity(0.6);
+		
+    </script>
+</body>
+</html>
